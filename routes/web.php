@@ -61,6 +61,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/pets/{pet}', [App\Http\Controllers\User\PetController::class, 'show'])->name('user.pets.show');
     Route::post('/pets/{pet}/cart', [App\Http\Controllers\User\PetController::class, 'addToCart'])->name('user.pets.add-to-cart');
 
+    // Mobile phones routes
+    Route::get('/mobile-phones', [App\Http\Controllers\User\MobilePhoneController::class, 'index'])->name('user.mobile-phones.index');
+    Route::get('/mobile-phones/{mobilePhone}', [App\Http\Controllers\User\MobilePhoneController::class, 'show'])->name('user.mobile-phones.show');
+    Route::post('/mobile-phones/{mobilePhone}/cart', [App\Http\Controllers\User\MobilePhoneController::class, 'addToCart'])->name('user.mobile-phones.add-to-cart');
+
     // Food routes
     Route::get('/food', [App\Http\Controllers\User\FoodController::class, 'index'])->name('user.food.index');
     Route::get('/food/{food}', [App\Http\Controllers\User\FoodController::class, 'show'])->name('user.food.show');
@@ -109,6 +114,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     Route::resource('pets', PetController::class);
     Route::resource('accessories', AccessoriesController::class);
     Route::resource('food', FoodController::class);
+    Route::resource('mobile-phones', \App\Http\Controllers\Admin\MobilePhoneController::class);
 
     // Admin customer list route
     Route::get('/customers', [App\Http\Controllers\Admin\AdminCustomerController::class, 'index'])->name('customers.index');

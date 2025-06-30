@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Pet;
+use App\Models\MobilePhone;
 use App\Models\Accessories;
 use Illuminate\Http\Request;
 
@@ -12,11 +12,11 @@ class WelcomeController extends Controller
      */
     public function index()
     {
-        $pets = Pet::limit(20)->get();
+        $mobilePhones = MobilePhone::limit(20)->get();
         $accessories = Accessories::limit(20)->get();
         $testimonials = \App\Models\Testimonial::with('user')->latest()->get();
 
-        return view('welcome', compact('pets', 'accessories', 'testimonials'));
+        return view('welcome', compact('mobilePhones', 'accessories', 'testimonials'));
     }
 
     public function create()

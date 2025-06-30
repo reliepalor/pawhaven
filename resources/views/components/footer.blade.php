@@ -1,9 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Mobile Hub | Footer</title>
+    <link rel="icon" type="image/x-icon" href="{{ asset('images/mobile-hub-logo.png') }}">
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=inter:400,500,600,700" rel="stylesheet" />
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet" />
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -19,124 +23,95 @@
                 transform: translateY(0);
             }
         }
-        .modal-enter {
-            animation: modalEnter 0.3s ease-out;
-        }
-        @keyframes modalEnter {
-            from {
-                opacity: 0;
-                transform: scale(0.95);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-        .modal-exit {
-            animation: modalExit 0.3s ease-in;
-        }
-        @keyframes modalExit {
-            from {
-                opacity: 1;
-                transform: scale(1);
-            }
-            to {
-                opacity: 0;
-                transform: scale(0.95);
-            }
-        }
     </style>
 </head>
-<body>
+<body class="font-[Inter]">
     <!-- Footer -->
-    <footer class="px-6 py-12 bg-gray-900 text-white relative">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+    <footer class="px-6 py-12 bg-blue-900 text-white">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             <div>
-                <h3 class="text-xl font-bold mb-4">Nest</h3>
-                <input type="email" placeholder="Enter your email" class="w-full px-4 py-2 rounded-full text-black">
-                <button class="mt-2 px-4 py-2 bg-white text-black rounded-full hover:bg-gray-200">Subscribe</button>
-                <!-- Testimonial Modal Trigger -->
-                <button id="openTestimonialModal" class="mt-4 px-4 py-2 bg-purple-600 text-white rounded-full text-sm font-medium hover:bg-purple-700 transition duration-200">
-                    Leave a Testimonial
-                </button>
+                <h3 class="text-xl font-semibold mb-4">Shop</h3>
+                <a href="#" class="block text-gray-300 hover:text-blue-200 transition fade-in">All Products</a>
+                <a href="#" class="block text-gray-300 hover:text-blue-200 transition fade-in">Categories</a>
+                <a href="#" class="block text-gray-300 hover:text-blue-200 transition fade-in">Wishlist</a>
             </div>
             <div>
-                <h3 class="text-xl font-bold mb-4">Shop</h3>
-                <a href="#" class="block hover:text-gray-400">All Products</a>
-                <a href="#" class="block hover:text-gray-400">Categories</a>
-                <a href="#" class="block hover:text-gray-400">Wishlist</a>
+                <h3 class="text-xl font-semibold mb-4">Information</h3>
+                <a href="#" class="block text-gray-300 hover:text-blue-200 transition fade-in">Shipping Policy</a>
+                <a href="#" class="block text-gray-300 hover:text-blue-200 transition fade-in">Returns & Refunds</a>
+                <a href="#" class="block text-gray-300 hover:text-blue-200 transition fade-in">FAQs</a>
             </div>
             <div>
-                <h3 class="text-xl font-bold mb-4">Information</h3>
-                <a href="#" class="block hover:text-gray-400">Shipping Policy</a>
-                <a href="#" class="block hover:text-gray-400">Returns & Refunds</a>
-                <a href="#" class="block hover:text-gray-400">FAQs</a>
+                <h3 class="text-xl font-semibold mb-4">Company</h3>
+                <a href="#" class="block text-gray-300 hover:text-blue-200 transition fade-in">About Us</a>
+                <a href="#" class="block text-gray-300 hover:text-blue-200 transition fade-in">Privacy Policy</a>
+                <a href="#" class="block text-gray-300 hover:text-blue-200 transition fade-in">Terms & Conditions</a>
             </div>
             <div>
-                <h3 class="text-xl font-bold mb-4">Company</h3>
-                <a href="#" class="block hover:text-gray-400">About Us</a>
-                <a href="#" class="block hover:text-gray-400">Privacy Policy</a>
-                <a href="#" class="block hover:text-gray-400">Terms & Conditions</a>
+                <h3 class="text-xl font-semibold mb-4">Connect</h3>
+                <a href="#" class="block text-gray-300 hover:text-blue-200 transition fade-in">Contact Us</a>
+                <a href="#" class="block text-gray-300 hover:text-blue-200 transition fade-in">Support</a>
+                <a href="#" class="block text-gray-300 hover:text-blue-200 transition fade-in">Newsletter</a>
             </div>
         </div>
-        <p class="text-center mt-8">© Pawhaven 2025</p>
-
-        <!-- Testimonial Modal -->
-        <div id="testimonialModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
-            <div class="bg-white rounded-lg shadow-lg w-full max-w-md p-6 relative modal-enter">
-                <button id="closeTestimonialModal" class="absolute top-3 right-3 text-gray-600 hover:text-gray-900">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
-                <h3 class="text-xl font-semibold text-gray-900 mb-4">Leave a Testimonial</h3>
-                <form method="POST" action="{{ route('testimonials.store') }}">
-                    @csrf
-                    <div class="mb-4">
-                        <label for="rating" class="block text-gray-700 font-medium mb-2">Rating</label>
-                        <div class="flex space-x-1">
-                            <input type="radio" id="star1" name="rating" value="1" required class="hidden" />
-                            <label for="star1" class="cursor-pointer text-2xl text-gray-300 hover:text-yellow-400">★</label>
-                            <input type="radio" id="star2" name="rating" value="2" class="hidden" />
-                            <label for="star2" class="cursor-pointer text-2xl text-gray-300 hover:text-yellow-400">★</label>
-                            <input type="radio" id="star3" name="rating" value="3" class="hidden" />
-                            <label for="star3" class="cursor-pointer text-2xl text-gray-300 hover:text-yellow-400">★</label>
-                            <input type="radio" id="star4" name="rating" value="4" class="hidden" />
-                            <label for="star4" class="cursor-pointer text-2xl text-gray-300 hover:text-yellow-400">★</label>
-                            <input type="radio" id="star5" name="rating" value="5" class="hidden" />
-                            <label for="star5" class="cursor-pointer text-2xl text-gray-300 hover:text-yellow-400">★</label>
-                        </div>
-                    </div>
-                    <div class="mb-4">
-                        <label for="comment" class="block text-gray-700 font-medium mb-2">Comment</label>
-                        <textarea id="comment" name="comment" rows="4" required class="w-full px-3 py-2 bg-white border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-purple-600 text-gray-900 placeholder-gray-500"></textarea>
-                    </div>
-                    <button type="submit" class="w-full bg-purple-600 text-white py-2 rounded-md hover:bg-purple-700 transition duration-200">Submit</button>
-                </form>
-            </div>
-        </div>
+        <p class="text-center mt-8 text-gray-300">© Mobile Hub 2025</p>
     </footer>
-    <button
-        x-data="{ hovering: false }"
-        @click="window.scrollTo({ top: 0, behavior: 'smooth' })"
-        @mouseenter="hovering = true"
-        @mouseleave="hovering = false"
-        :class="hovering ? 'w-36 px-4' : 'w-12 px-0'"
-        class="fixed bottom-8 right-8 bg-blue-300 hover:bg-blue-600 text-white rounded-full shadow-lg h-12 flex items-center justify-center overflow-hidden transition-all duration-300 ease-in-out"
-        aria-label="Back to top"
-    >
-        <!-- Up Arrow Icon -->
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 flex-shrink-0 transition-all duration-300 z-100" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7" />
-        </svg>
-        <!-- Back to Top Text -->
-        <span
-            class="ml-2 whitespace-nowrap transition-all duration-300 ease-in-out"
-            :class="hovering ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-2'"
-        >
-            Back to top
-        </span>
-    </button>
+
+    <!-- Testimonial Modal -->
+    <div id="testimonialModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+        <div class="bg-white rounded-lg shadow-lg w-full max-w-lg p-6 overflow-y-auto max-h-[90vh] transition-all duration-300">
+            <button id="closeTestimonialModal" class="absolute top-3 right-3 text-gray-600 hover:text-blue-600">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+            <h3 class="text-xl font-semibold text-gray-900 mb-4">Leave a Testimonial</h3>
+            <form method="POST" action="{{ route('testimonials.store') }}">
+                @csrf
+                <div class="mb-4">
+                    <label for="rating" class="block text-gray-700 font-medium mb-2">Rating</label>
+                    <div class="flex space-x-1">
+                        <input type="radio" id="star1" name="rating" value="1" required class="hidden" />
+                        <label for="star1" class="cursor-pointer text-2xl text-gray-300 hover:text-yellow-400" aria-label="1 star">★</label>
+                        <input type="radio" id="star2" name="rating" value="2" class="hidden" />
+                        <label for="star2" class="cursor-pointer text-2xl text-gray-300 hover:text-yellow-400" aria-label="2 stars">★</label>
+                        <input type="radio" id="star3" name="rating" value="3" class="hidden" />
+                        <label for="star3" class="cursor-pointer text-2xl text-gray-300 hover:text-yellow-400" aria-label="3 stars">★</label>
+                        <input type="radio" id="star4" name="rating" value="4" class="hidden" />
+                        <label for="star4" class="cursor-pointer text-2xl text-gray-300 hover:text-yellow-400" aria-label="4 stars">★</label>
+                        <input type="radio" id="star5" name="rating" value="5" class="hidden" />
+                        <label for="star5" class="cursor-pointer text-2xl text-gray-300 hover:text-yellow-400" aria-label="5 stars">★</label>
+                    </div>
+                    @error('rating')
+                        <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+                <div class="mb-4">
+                    <label for="comment" class="block text-gray-700 font-medium mb-2">Comment</label>
+                    <textarea id="comment" name="comment" rows="4" required
+                              class="w-full px-3 py-2 bg-gray-50 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-900 placeholder-gray-500"></textarea>
+                    @error('comment')
+                        <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+                <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition duration-200">Submit</button>
+            </form>
+        </div>
+    </div>
+
+   <!-- Back to Top Button -->
+<button
+    x-data="{ hovering: false }"
+    @click="window.scrollTo({ top: 0, behavior: 'smooth' })"
+    @mouseenter="hovering = true"
+    @mouseleave="hovering = false"
+    class="fixed bottom-6 right-6 text-black bg-white hover:bg-gray-400 text-white rounded-lg shadow-md h-12 w-12 flex items-center justify-center transition-all duration-300 ease-in-out"
+    aria-label="Back to top"
+>
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="black" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M5 15l7-7 7 7" />
+    </svg>
+</button>
 
     <script src="{{ asset('javascript/testimonials.js') }}"></script>
 

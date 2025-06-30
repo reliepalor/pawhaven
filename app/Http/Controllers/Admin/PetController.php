@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Pet;
+use App\Models\MobilePhone;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
@@ -14,52 +15,56 @@ class PetController extends Controller
     {
         Log::info('PetController@index method called'); // Debug to confirm method execution
 
-        $query = Pet::query();
+        $query = MobilePhone::query();
 
         // Apply filters
-        if ($request->filled('category')) {
-            $query->where('category', $request->category);
-        }
-        if ($request->filled('breed')) {
-            $query->where('breed', $request->breed);
-        }
-        if ($request->filled('age')) {
-            $query->where('age', $request->age);
-        }
-        if ($request->filled('gender')) {
-            $query->where('gender', $request->gender);
-        }
-        if ($request->filled('color')) {
-            $query->where('color', $request->color);
+        if ($request->filled('brand')) {
+            $query->where('brand', $request->brand);
         }
         if ($request->filled('status')) {
-            if ($request->status === 'In-Stock') {
-                $query->where('quantity', '>', 0);
-            } else if ($request->status === 'Out of Stock') {
-                $query->where('quantity', '=', 0);
-            }
+            $query->where('status', $request->status);
+        }
+        if ($request->filled('min_price')) {
+            $query->where('price', '>=', $request->min_price);
+        }
+        if ($request->filled('max_price')) {
+            $query->where('price', '<=', $request->max_price);
         }
         
-        $pets = $query->latest()->get();
+        $mobilePhones = $query->latest()->get();
 
-        // Calculate stats for the dashboard
-        $totalPets = Pet::count();
-        $availablePets = Pet::where('quantity', '>', 0)->count();
-        $soldOutPets = Pet::where('quantity', '=', 0)->count();
-        $totalBreeds = Pet::distinct('breed')->count('breed');
+        // Calculate real stats for the dashboard
+        $totalPhones = MobilePhone::count();
+        $inStockPhones = MobilePhone::where('status', 'In Stock')->count();
+        $outOfStockPhones = MobilePhone::where('status', 'Out of Stock')->count();
+        $totalBrands = MobilePhone::distinct('brand')->count('brand');
+
+        // Get brand distribution for chart
+        $brandDistribution = MobilePhone::selectRaw('brand, COUNT(*) as count')
+            ->groupBy('brand')
+            ->orderBy('count', 'desc')
+            ->get();
+
+        // Get stock status distribution for chart
+        $stockStatusDistribution = MobilePhone::selectRaw('status, COUNT(*) as count')
+            ->groupBy('status')
+            ->get();
+
+        // Get recent mobile phones for activity feed
+        $recentPhones = MobilePhone::latest()->take(5)->get();
 
         // Debug: Log the values to ensure they're being calculated
-        Log::info('Stats calculated:', [
-            'totalPets' => $totalPets,
-            'availablePets' => $availablePets,
-            'soldOutPets' => $soldOutPets,
-            'totalBreeds' => $totalBreeds,
+        Log::info('Mobile Phone stats calculated:', [
+            'totalPhones' => $totalPhones,
+            'inStockPhones' => $inStockPhones,
+            'outOfStockPhones' => $outOfStockPhones,
+            'totalBrands' => $totalBrands,
         ]);
 
         // Debug: Log the variables being passed to the view
-        Log::info('Variables passed to view:', compact('pets', 'totalPets', 'availablePets', 'soldOutPets', 'totalBreeds'));
+        Log::info('Variables passed to view:', compact('mobilePhones', 'totalPhones', 'inStockPhones', 'outOfStockPhones', 'totalBrands', 'brandDistribution', 'stockStatusDistribution', 'recentPhones'));
 
-        return view('admin.pets.index', compact('pets', 'totalPets', 'availablePets', 'soldOutPets', 'totalBreeds'));
+        return view('admin.pets.index', compact('mobilePhones', 'totalPhones', 'inStockPhones', 'outOfStockPhones', 'totalBrands', 'brandDistribution', 'stockStatusDistribution', 'recentPhones'));
     }
 
     public function create()

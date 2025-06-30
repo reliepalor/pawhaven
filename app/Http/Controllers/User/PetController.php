@@ -17,6 +17,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Accessories;
 use App\Models\Food;
+use App\Models\MobilePhone;
 
 class PetController extends Controller
 {
@@ -229,6 +230,10 @@ class PetController extends Controller
                     $item = Food::find($productId);
                     $itemType = Food::class;
                     break;
+                case 'mobile_phone':
+                    $item = MobilePhone::find($productId);
+                    $itemType = MobilePhone::class;
+                    break;
                 default:
                     return redirect()->back()->with('error', 'Invalid product type.');
             }
@@ -340,6 +345,14 @@ class PetController extends Controller
                         if ($pet) {
                             $pet->update(['status' => 'Sold Out']);
                         }
+                    } elseif ($productType === 'mobile_phone') {
+                        $mobilePhone = MobilePhone::find($productId);
+                        if ($mobilePhone) {
+                            $mobilePhone->decrement('stock_quantity', $quantity);
+                            if ($mobilePhone->stock_quantity <= 0) {
+                                $mobilePhone->update(['status' => 'Out of Stock']);
+                            }
+                        }
                     } else {
                         $item = $productType === 'accessory' ? Accessories::find($productId) : Food::find($productId);
                         if ($item) {
@@ -348,6 +361,32 @@ class PetController extends Controller
                     }
                 } else {
                     // Handle cart items checkout
+                    foreach ($cartItems as $item) {
+                        if ($item->item_type === Pet::class) {
+                            $pet = Pet::find($item->item_id);
+                            if ($pet) {
+                                $pet->update(['status' => 'Sold Out']);
+                            }
+                        } elseif ($item->item_type === MobilePhone::class) {
+                            $mobilePhone = MobilePhone::find($item->item_id);
+                            if ($mobilePhone) {
+                                $mobilePhone->decrement('stock_quantity', $item->quantity);
+                                if ($mobilePhone->stock_quantity <= 0) {
+                                    $mobilePhone->update(['status' => 'Out of Stock']);
+                                }
+                            }
+                        } elseif ($item->item_type === Accessories::class) {
+                            $accessory = Accessories::find($item->item_id);
+                            if ($accessory) {
+                                $accessory->decrement('stock', $item->quantity);
+                            }
+                        } elseif ($item->item_type === Food::class) {
+                            $food = Food::find($item->item_id);
+                            if ($food) {
+                                $food->decrement('stock', $item->quantity);
+                            }
+                        }
+                    }
                     CartItem::whereIn('id', $selectedItems)->delete();
                 }
 
@@ -386,6 +425,14 @@ class PetController extends Controller
                         if ($pet) {
                             $pet->update(['status' => 'Sold Out']);
                         }
+                    } elseif ($productType === 'mobile_phone') {
+                        $mobilePhone = MobilePhone::find($productId);
+                        if ($mobilePhone) {
+                            $mobilePhone->decrement('stock_quantity', $quantity);
+                            if ($mobilePhone->stock_quantity <= 0) {
+                                $mobilePhone->update(['status' => 'Out of Stock']);
+                            }
+                        }
                     } else {
                         $item = $productType === 'accessory' ? Accessories::find($productId) : Food::find($productId);
                         if ($item) {
@@ -394,6 +441,32 @@ class PetController extends Controller
                     }
                 } else {
                     // Handle cart items checkout
+                    foreach ($cartItems as $item) {
+                        if ($item->item_type === Pet::class) {
+                            $pet = Pet::find($item->item_id);
+                            if ($pet) {
+                                $pet->update(['status' => 'Sold Out']);
+                            }
+                        } elseif ($item->item_type === MobilePhone::class) {
+                            $mobilePhone = MobilePhone::find($item->item_id);
+                            if ($mobilePhone) {
+                                $mobilePhone->decrement('stock_quantity', $item->quantity);
+                                if ($mobilePhone->stock_quantity <= 0) {
+                                    $mobilePhone->update(['status' => 'Out of Stock']);
+                                }
+                            }
+                        } elseif ($item->item_type === Accessories::class) {
+                            $accessory = Accessories::find($item->item_id);
+                            if ($accessory) {
+                                $accessory->decrement('stock', $item->quantity);
+                            }
+                        } elseif ($item->item_type === Food::class) {
+                            $food = Food::find($item->item_id);
+                            if ($food) {
+                                $food->decrement('stock', $item->quantity);
+                            }
+                        }
+                    }
                     CartItem::whereIn('id', $selectedItems)->delete();
                 }
 

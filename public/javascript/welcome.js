@@ -77,29 +77,29 @@ function Badge({ icon, label }) {
 
 document.addEventListener('DOMContentLoaded', () => {
   const searchInput = document.getElementById('searchInput');
-  const petsContainer = document.getElementById('petsContainer');
+  const phonesContainer = document.getElementById('phonesContainer');
   const accessoriesContainer = document.getElementById('accessoriesContainer');
 
   searchInput.addEventListener('input', () => {
     const query = searchInput.value.toLowerCase().trim();
     
-    // Handle pets
-    const petCards = petsContainer.querySelectorAll('.card');
-    petsContainer.style.opacity = '0.3';
+    // Handle phones
+    const phoneCards = phonesContainer.querySelectorAll('.card');
+    phonesContainer.style.opacity = '0.3';
     
     setTimeout(() => {
-      petCards.forEach(card => {
+      phoneCards.forEach(card => {
         const name = card.dataset.name;
-        const breed = card.dataset.breed;
+        const brand = card.dataset.brand;
         const category = card.dataset.category;
         
-        if (query === '' || name.includes(query) || breed.includes(query) || category.includes(query)) {
+        if (query === '' || name.includes(query) || brand.includes(query) || category.includes(query)) {
           card.style.display = 'block';
         } else {
           card.style.display = 'none';
         }
       });
-      petsContainer.style.opacity = '1';
+      phonesContainer.style.opacity = '1';
     }, 300);
 
     // Handle accessories

@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
-  const petsContainer = document.getElementById('petsContainer');
-  const scrollLeftPets = document.getElementById('scrollLeftPets');
-  const scrollRightPets = document.getElementById('scrollRightPets');
+  const phonesContainer = document.getElementById('phonesContainer');
+  const scrollLeftPhones = document.getElementById('scrollLeftPhones');
+  const scrollRightPhones = document.getElementById('scrollRightPhones');
 
   const accessoriesContainer = document.getElementById('accessoriesContainer');
   const scrollLeftAccessories = document.getElementById('scrollLeftAccessories');
@@ -9,12 +9,12 @@ document.addEventListener('DOMContentLoaded', function () {
 
   const scrollAmount = 240; // Amount to scroll on each arrow click
 
-  scrollLeftPets.addEventListener('click', () => {
-    petsContainer.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+  scrollLeftPhones.addEventListener('click', () => {
+    phonesContainer.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
   });
 
-  scrollRightPets.addEventListener('click', () => {
-    petsContainer.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+  scrollRightPhones.addEventListener('click', () => {
+    phonesContainer.scrollBy({ left: scrollAmount, behavior: 'smooth' });
   });
 
   scrollLeftAccessories.addEventListener('click', () => {
