@@ -10,6 +10,7 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
+<<<<<<< HEAD
 <body class="bg-gradient-to-br from-gray-50 to-blue-50 min-h-screen flex items-center justify-center p-4 font-[Inter]">
     <div class="w-full max-w-md p-8 bg-white rounded-2xl shadow-xl border border-gray-100">
         <div class="flex justify-center items-center mb-8 space-x-3">
@@ -20,6 +21,38 @@
         <div class="mb-6">
             <h3 class="text-lg font-semibold text-gray-900 mb-2">Create your account</h3>
             <p class="text-gray-600 text-sm">Join Mobile Hub to start shopping for mobile phones</p>
+=======
+<body class="min-h-screen overflow-hidden">
+
+  <!-- Background Video -->
+  <div class="fixed inset-0 z-0">
+    <video autoplay muted loop playsinline class="w-full h-full object-cover">
+      <source src="/videos/dogvideo.mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+    <div class="absolute inset-0 bg-black bg-opacity-30"></div>
+  </div>
+
+  <!-- Register Form -->
+  <div class="relative z-10 min-h-screen flex items-center justify-center p-4">
+    <div class="w-full max-w-md p-10 bg-white/10 backdrop-blur-lg rounded-2xl shadow-2xl border border-white/20">
+
+      <!-- Header -->
+      <div class="flex justify-center items-center mb-6 space-x-3">
+        <h2 class="text-4xl font-extrabold text-white text-center">Paw Haven</h2>
+        <img src="/images/paw.png" alt="Paw Icon" width="50" height="50" />
+      </div>
+
+      <!-- Form -->
+      <form action="{{ route('register.store') }}" method="POST">
+        @csrf
+
+        <!-- Name -->
+        <div class="mb-5">
+          <label for="name" class="block text-white mb-1">Name</label>
+          <input id="name" name="name" type="text" required
+            class="w-full px-4 py-3 bg-white/10 text-white border border-white/20 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500" />
+>>>>>>> 997eaab (Fixed Registration)
         </div>
 
         <form method="POST" action="{{ route('register') }}">
